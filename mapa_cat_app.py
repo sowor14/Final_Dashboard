@@ -48,14 +48,20 @@ df2=df[df['any_entrada_sistema'].isin(options)]
 df_v=list(df2['codi_vagueria'])
 # df_s=(df2['sexe_infant','codi_vagueria'])
 #ENTRA LA FUNCIÓ
-# p = vagueries_plot(df_v)
-# q,r,s = hist1(options)
+
+
+
+
+
+p = vagueries_plot(df_v)
+q= hist1(options)
 ani=pie_aleix(options)
 #FALTA SABER COM PASSAR UN DF COM ARGUMENT I PODER PLOTEJAR MÉS COSES
 st.title("Migrants arribats a Catalunya")
-st.subheader("Sel·lecció predeterminada: 2015-2021")
+st.write("Sel·lecció predeterminada: 2015-2021")
+st.bokeh_chart(q)
+st.caption("Caption1")
+st.bokeh_chart(p)
+st.caption("Caption2")
+st.subheader("Subheader")
 components.html(ani.to_jshtml(), height=2000)
-# st.pyplot(q)
-# st.pyplot(r)
-# st.pyplot(s)
-# st.bokeh_chart(p)

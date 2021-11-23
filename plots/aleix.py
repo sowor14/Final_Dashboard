@@ -31,47 +31,23 @@ def pie_aleix(options):
     labels_total = df["origen_infant"].value_counts().index
     exp= [0.01,0.01,0.01,0.01]
 
-    #plt.pie(origen_total,labels=labels_total, textprops ={"fontweight":"bold","size":15},
-    #         autopct="%1.1f%%",colors = colors, shadow= True,explode = exp,startangle=180,pctdistance = 0.7,radius=2)
-    # plt.pie(origen_total, colors = ["white"])
-    # plt.show()
-    # %% codecell
-    colors_dict={ 'Marroc':"#E69F00",'Magreb (excloent Marroc)':'#56B4E9',
-                 'Africa subsahariana':'#009E73','Altra':'#F0E442'}
-
-    # f, ax = plt.subplots(figsize=(7,7))
-    # df_any= df[df["any_entrada_sistema"]==year[5]]
-    # origen_any = df_any["origen_infant"].value_counts()#.tolist()
-    # labels_any = df_any["origen_infant"].value_counts().index
-    # list_countries = list(colors_dict.keys())
-    # #print(origen_any)
-    # origen_any =origen_any.reindex(list_countries)
-    # cdict = {"Marroc":'#E69F00',"Altra":"#56B4E9","Africa subsahariana"'#009E73'
-    #         "Magreb (excloent Marroc)":'#F0E442'}
-    # exp= [0.01,0.01,0.01,0.01]
-
-    #colors2=[colors_dict[x] for x in origen_any.index]
-    # origen_any.plot.pie( textprops ={"fontweight":"bold","size":15}, autopct="%1.1f%%",colors = colors, shadow= True,explode = exp,pctdistance = 0.7,radius=3,startangle=180)
-    # #plt.pie(origen_any,labels=labels_any, textprops ={"fontweight":"bold","size":15},
-    # #        autopct="%1.1f%%",colors = colors, shadow= True,explode = exp,pctdistance = 0.7,radius=2)
-    # plt.pie(origen_total, colors = ["white"])
-    # #centre_circle = plt.Circle((-5,0),70,fc= "white")
-    # plt.gca().axis("equal")
-    #
-    # plt.title("Origen Migratori",loc="left",size=15)
-    # ax.set_axis_off()
-    # plt.show()
-    # %% codecell
     pie_1, ax = plt.subplots(figsize=(7,7))
-    colors_dict={ 'Marroc':"#E69F00",'Magreb (excloent Marroc)':'#56B4E9',
-                 'Africa subsahariana':'#009E73','Altra':'#F0E442'}
+    colors_dict={ 'Morroco':"#E69F00",'Maghreb':'#56B4E9',
+                 'Sub-Saharan Africa':'#009E73','Others':'#F0E442'}
+    dw_mapping={"Africa subsahariana":"Sub-Saharan Africa",
+               "Marroc":"Morroco",
+               "Magreb (excloent Marroc)":"Maghreb",
+               "Altra":"Others"}
+    df= df.sort_values("data_entrada_sistema")
+    df = df.dropna()
+    df['origen'] = df['origen_infant'].map(dw_mapping)
     year = ["2016","2017","2018","2019","2020","2021"]
     frames = len(year)
     def animation_pie(i):
         ax.clear()
         df_any= df[df["any_entrada_sistema"]==year[i]]
-        origen_any = df_any["origen_infant"].value_counts()#.tolist()
-        labels_any = df_any["origen_infant"].value_counts().index
+        origen_any = df_any["origen"].value_counts()#.tolist()
+        labels_any = df_any["origen"].value_counts().index
         list_countries = list(colors_dict.keys())
         origen_any =origen_any.reindex(list_countries)
         exp= [0.01,0.01,0.01,0.01]

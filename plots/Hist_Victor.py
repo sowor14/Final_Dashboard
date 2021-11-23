@@ -68,6 +68,11 @@ def hist1(options):
     df['data_naixement_infant']= pd.to_datetime(df['data_naixement_infant'])
     df['any_naixement']= df['data_naixement_infant'].dt.year
     df['Edat_arribada'] = df["any_entrada"]-df["any_naixement"]
+    dw_mapping={"Africa subsahariana":"Sub-Saharan Africa",
+               "Marroc":"Morroco",
+               "Magreb (excloent Marroc)":"Maghreb",
+               "Altra":"Others"}
+    df['origen'] = df['origen_infant'].map(dw_mapping)
 
 
     # # df.hist(column='Edat_arribada',by='sexe_infant',sharex=True,sharey=True)
@@ -75,35 +80,44 @@ def hist1(options):
     sns.set_palette(sns.color_palette(colors))
     rcParams['font.family'] = 'serif'
 
-    df2 = df.groupby(['Edat_arribada', 'origen_infant'])['Edat_arribada'].count().unstack('origen_infant').fillna(0)
-    fig,ax=plt.subplots()
-    df2.plot(ax=ax,kind='bar', stacked=True,color=colors)
-    plt.xlabel("Edat d'arribada")
-    plt.ylabel('Numero de persones')
+    df2 = df.groupby(['Edat_arribada', 'origen'])['Edat_arribada'].count().unstack('origen').fillna(0)
+    # chicas = df[df['sexe_infant']=='Noies']
+    # df2 = chicas.groupby(['origen_infant', 'Edat_arribada'])['Edat_arribada'].count().unstack('origen_infant').fillna(0)
     plt.tight_layout()
-    plt.legend(loc='upper left',fontsize='9')
-    # plt.show(fig)
+    fig=df2.plot_bokeh(kind='bar', stacked=True,legend=True,xticks=np.arange(0,36,3),xlabel='Arrival age',ylabel='Number of people',show_figure=False)
 
-    chicos = df[df['sexe_infant']=='Nois']
-    df2 = chicos.groupby(['origen_infant', 'Edat_arribada'])['Edat_arribada'].count().unstack('origen_infant').fillna(0)
-    fig2,ax2=plt.subplots()
-    df2.plot(ax=ax2,kind='bar', stacked=True,color=colors)
-    plt.xlabel("Edat d'arribada")
-    plt.ylabel('Numero de nois')
-    plt.tight_layout()
-    plt.legend(loc='upper left',fontsize='9')
-    # plt.show(fig2)
+    # plt.title(' _   ')
 
-    chicas = df[df['sexe_infant']=='Noies']
-    df2 = chicas.groupby(['origen_infant', 'Edat_arribada'])['Edat_arribada'].count().unstack('origen_infant').fillna(0)
-    fig3,ax3=plt.subplots()
-    df2.plot(ax=ax3,kind='bar', stacked=True,color=colors)
-    plt.xlabel("Edat d'arribada")
-    plt.ylabel('Numero de noies')
-    plt.tight_layout()
-    plt.legend(loc='upper left',fontsize='9')
+    # df2 = df.groupby(['Edat_arribada', 'origen_infant'])['Edat_arribada'].count().unstack('origen_infant').fillna(0)
+    # fig,ax=plt.subplots()
+    # df2.plot(ax=ax,kind='bar', stacked=True,color=colors)
+    # plt.xlabel("Edat d'arribada")
+    # plt.ylabel('Numero de persones')
+    # plt.tight_layout()
+    # plt.legend(loc='upper left',fontsize='9')
+    # # plt.show(fig)
+    #
+    # chicos = df[df['sexe_infant']=='Nois']
+    # df2 = chicos.groupby(['origen_infant', 'Edat_arribada'])['Edat_arribada'].count().unstack('origen_infant').fillna(0)
+    # fig2,ax2=plt.subplots()
+    # df2.plot(ax=ax2,kind='bar', stacked=True,color=colors)
+    # plt.xlabel("Edat d'arribada")
+    # plt.ylabel('Numero de nois')
+    # plt.tight_layout()
+    # plt.legend(loc='upper left',fontsize='9')
+    # # plt.show(fig2)
+    #
+    # chicas = df[df['sexe_infant']=='Noies']
+    # df2 = chicas.groupby(['origen_infant', 'Edat_arribada'])['Edat_arribada'].count().unstack('origen_infant').fillna(0)
+    # fig3,ax3=plt.subplots()
+    # df2.plot(ax=ax3,kind='bar', stacked=True,color=colors)
+    # plt.xlabel("Edat d'arribada")
+    # plt.ylabel('Numero de noies')
+    # plt.tight_layout()
+    # plt.legend(loc='upper left',fontsize='9')
     # plt.show()
-    return fig,fig2,fig3
+    return fig
+    # ,fig2,fig3
 
 if __name__ == "__main__":
     """
