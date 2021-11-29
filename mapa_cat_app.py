@@ -2,12 +2,24 @@ import streamlit as st
 import streamlit.components.v1 as components
 import numpy as np
 import pandas as pd
-from sodapy import Socrata
 from plots.funcio_mapa import vagueries_plot
 from plots.Hist_Victor import hist1
 from plots.aleix import pie_aleix
 
 options = st.multiselect('Which years do you want to see?',['2015','2016','2017','2018','2019','2020','2021','All'],default=['All'])
+<<<<<<< HEAD
+
+
+
+
+
+
+
+
+
+
+p = vagueries_plot(options)
+=======
 # st.write('You selected:', options)
 client = Socrata("analisi.transparenciacatalunya.cat", None)
 if 'All' in options:
@@ -54,6 +66,7 @@ df_v=list(df2['codi_vagueria'])
 
 
 p = vagueries_plot(df_v)
+>>>>>>> 95ebc2da40916da5c23ef481433d5dd7e4c78eb0
 q= hist1(options)
 ani=pie_aleix(options)
 #FALTA SABER COM PASSAR UN DF COM ARGUMENT I PODER PLOTEJAR MÉS COSES
@@ -64,4 +77,9 @@ st.caption("Caption1")
 st.bokeh_chart(p)
 st.caption("Caption2")
 st.subheader("Subheader")
+<<<<<<< HEAD
+
+components.html(ani.to_jshtml(), height=1000)
+=======
 components.html(ani.to_jshtml(), height=2000)
+>>>>>>> 95ebc2da40916da5c23ef481433d5dd7e4c78eb0

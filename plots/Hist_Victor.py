@@ -12,6 +12,7 @@ matplotlib.use('tkagg')
 import matplotlib.pyplot as plt
 import seaborn as sns
 import pandas as pd
+import pandas_bokeh
 from matplotlib.gridspec import GridSpec
 from matplotlib import rcParams
 rcParams['font.family'] = 'serif'
@@ -27,7 +28,10 @@ from sodapy import Socrata
 # Unauthenticated client only works with public data sets. Note 'None'
 # in place of application token, and no username or password:
 def hist1(options):
+    options=['All']
     client = Socrata("analisi.transparenciacatalunya.cat", None)
+    if 'All' in options:
+        options=['2015','2016','2017','2018','2019','2020','2021']
     print("Format of dataset: ", type(client))
     # First 2000 results, returned as JSON from API / converted to Python list of
     # dictionaries by sodapy.
@@ -74,7 +78,7 @@ def hist1(options):
                "Altra":"Others"}
     df['origen'] = df['origen_infant'].map(dw_mapping)
 
-
+    pandas_bokeh.output_file('INTENTO')
     # # df.hist(column='Edat_arribada',by='sexe_infant',sharex=True,sharey=True)
     colors = ['#E69F00','#56B4E9','#009E73','#F0E442','#0072B2','#D55E00','#CC79A7']
     sns.set_palette(sns.color_palette(colors))
@@ -86,6 +90,9 @@ def hist1(options):
     plt.tight_layout()
     fig=df2.plot_bokeh(kind='bar', stacked=True,legend=True,xticks=np.arange(0,36,3),xlabel='Arrival age',ylabel='Number of people',show_figure=False)
 
+<<<<<<< HEAD
+    return fig
+=======
     # plt.title(' _   ')
 
     # df2 = df.groupby(['Edat_arribada', 'origen_infant'])['Edat_arribada'].count().unstack('origen_infant').fillna(0)
@@ -118,180 +125,13 @@ def hist1(options):
     # plt.show()
     return fig
     # ,fig2,fig3
+>>>>>>> 95ebc2da40916da5c23ef481433d5dd7e4c78eb0
 
 if __name__ == "__main__":
     """
     provide some sample input for the plot function,
     to allow for a quick preview of only this plot
     """
-    options=['2015','2016','2017','2018','2019','2020','2021']
-    fig,fig2,fig3=hist1(options)
+    options=['All']
+    fig=hist1(options)
     plt.show()
-
-
-#CREO UN HISTOGRAMA CON EL NUMERO DE CHICAS/CHICOS EN FUNCION DE LA EDAD CON
-#LA QUE LLEGARON A CATALUNA COMPARADOS EN PARALELO. |_| |_|.
-
-# fig=plt.figure()
-# ax0=plt.subplot(222)
-# plt.xlabel('Edat')
-# plt.ylabel('Persones')
-# plt.tight_layout()
-
-# ax1=plt.subplot(221)
-# plt.xlabel('Edat')
-# plt.ylabel('Persones')
-# plt.tight_layout()
-
-# df.hist(column='Edat_arribada',by='sexe_infant',sharex=True,sharey=True,ax=(ax0,ax1),color=colors[6])
-# plt.tight_layout()
-# plt.show()
-
-
-# #CREA EL HISTO DE SOLO LOS CHICOS
-
-# edat_arribada=df[['Edat_arribada','sexe_infant']]
-# nomes_nois=edat_arribada[edat_arribada['sexe_infant']=='Nois']
-# Nois=nomes_nois['Edat_arribada']
-# ax=Nois.plot.hist(bins=24, alpha=0.5,label='Nois',color=colors[0])
-# plt.xlabel('Edat')
-# plt.ylabel('Persones')
-# plt.legend()
-# plt.show()
-
-# #CREA EL HISTO DE SOLO LAS CHICAS
-# nomes_noies=edat_arribada[edat_arribada['sexe_infant']=='Noies']
-# Noies=nomes_noies['Edat_arribada']
-# ax=Noies.plot.hist(bins=12, alpha=0.5,label='Noies',color=colors[1])
-# plt.xlabel('Edat')
-# plt.ylabel('Persones')
-# plt.legend()
-# plt.show()
-
-
-# # ###############################################################################
-# #CREA EL HISTO DE LAS PERSONAS (CHICOS+CHICAS) QUE LLEGARON EN LOS DIFRENTES AÑOS
-# #COMPARADOS EN PARALELO
-
-# fig=plt.figure()
-# ax0=plt.subplot(222)
-# plt.xlabel('Any entrada')
-# plt.ylabel('Persones')
-# plt.tight_layout()
-
-# ax1=plt.subplot(221)
-# plt.xlabel('Any entrada')
-# plt.ylabel('Persones')
-# plt.tight_layout()
-
-# df.hist(column='any_entrada',bins=7,by='sexe_infant',sharex=True,sharey=True,ax=(ax0,ax1),color=colors[4])
-# plt.tight_layout()
-# plt.show()
-
-# #CREA EL HISTO DE LOS CHICOS QUE LLEGARON EN LOS DIFRENTES AÑOS
-
-# any_entrada_sist=df[['any_entrada','sexe_infant']]
-# nomes_nois_arribada=any_entrada_sist[any_entrada_sist['sexe_infant']=='Nois']
-# Nois_arribada=nomes_nois_arribada['any_entrada']
-# ax=Nois_arribada.plot.hist(bins=7, alpha=0.5,label='Nois',color=colors[2])
-# plt.xlabel('Any arribada')
-# plt.ylabel('Persones')
-# plt.legend()
-# plt.show()
-
-# #CREA EL HISTO DE LOS CHICAS QUE LLEGARON EN LOS DIFRENTES AÑOS
-
-# nomes_noies_arribada=any_entrada_sist[any_entrada_sist['sexe_infant']=='Noies']
-# Noies_arribada=nomes_noies_arribada['any_entrada']
-# ax=Noies_arribada.plot.hist(bins=7, alpha=0.5,label='Noies',color=colors[3])
-# plt.xlabel('Any arribada')
-# plt.ylabel('Persones')
-# plt.legend()
-# plt.show()
-
-# #############################################################################
-# # CREA EL HISTO  DE LAS PERSONAS EN FUNCION DEL PAIS DE ORIGEN
-# # EN PARALELO CHICOS-CHICAS
-
-# fig=plt.figure()
-# ax0=plt.subplot(222)
-# plt.ylabel('Persones')
-# # plt.tight_layout()
-
-# ax1=plt.subplot(221)
-# plt.ylabel('Persones')
-# plt.tight_layout()
-
-# df.hist(column='origen_infant',bins=4,by='sexe_infant',sharex=True,sharey=True,ax=(ax0,ax1),color=colors[4],rot=70)
-# plt.tight_layout()
-# plt.show()
-
-
-# # Crea el histo de personas totales
-# origen_sexe=df[['origen_infant','sexe_infant']]
-# nomes_nois_origen=origen_sexe[origen_sexe['sexe_infant']=='Nois']
-# Nois_origen=nomes_nois_origen['origen_infant']
-# pd.Series(Nois_origen).value_counts().plot(kind='bar',rot=45)
-# plt.ylabel('Numero de persones')
-# plt.show()
-
-# nomes_noies_origen=origen_sexe[origen_sexe['sexe_infant']=='Noies']
-# Noies_origen=nomes_noies_origen['origen_infant']
-# pd.Series(Noies_origen).value_counts().plot(kind='bar',rot=45)
-# plt.ylabel('Numero de persones')
-# plt.show()
-
-# #############################################################################
-##HISTOGRAMA DE LA GENTE POR AÑO Y DENTRO DE LAS BARRAS POR PAIS
-
-# df2 = df.groupby(['origen_infant', 'any_entrada'])['any_entrada'].count().unstack('origen_infant').fillna(0)
-# ax=df2.plot(kind='bar', stacked=True,color=colors)
-# plt.xlabel("Any d'entrada")
-# plt.ylabel('Numero de persones')
-# plt.tight_layout()
-# plt.legend(loc='upper left',fontsize='9')
-# plt.show()
-
-# # SOLO CHICOS
-# chicos = df[df['sexe_infant']=='Nois']
-# df2 = chicos.groupby(['origen_infant', 'any_entrada'])['any_entrada'].count().unstack('origen_infant').fillna(0)
-# ax=df2.plot(kind='bar', stacked=True,color=colors)
-# plt.ylabel('Numero de nois')
-# plt.xlabel("Any d'entrada")
-# plt.tight_layout()
-# plt.legend(loc='upper left',fontsize='9')
-# plt.show()
-
-# # SOLO CHICAS
-# chicas = df[df['sexe_infant']=='Noies']
-# df2 = chicas.groupby(['origen_infant', 'any_entrada'])['any_entrada'].count().unstack('origen_infant').fillna(0)
-# ax=df2.plot(kind='bar', stacked=True,color=colors)
-# plt.ylabel('Numero de noies')
-# plt.xlabel("Any d'entrada")
-# plt.tight_layout()
-# plt.legend(loc='upper left',fontsize='9')
-# plt.show()
-
-
-# #############################################################################
-##HISTOGRAMA DE LA GENTE POR EDAD Y DENTRO DE LAS BARRAS POR PAIS
-
-
-
-# chicos = df[df['sexe_infant']=='Nois']
-# df2 = chicos.groupby(['origen_infant', 'Edat_arribada'])['Edat_arribada'].count().unstack('origen_infant').fillna(0)
-# ax=df2.plot(kind='bar', stacked=True,color=colors)
-# plt.xlabel("Edat d'arribada")
-# plt.ylabel('Numero de nois')
-# plt.tight_layout()
-# plt.legend(loc='upper left',fontsize='9')
-# plt.show()
-#
-# chicas = df[df['sexe_infant']=='Noies']
-# df2 = chicas.groupby(['origen_infant', 'Edat_arribada'])['Edat_arribada'].count().unstack('origen_infant').fillna(0)
-# ax=df2.plot(kind='bar', stacked=True,color=colors)
-# plt.xlabel("Edat d'arribada")
-# plt.ylabel('Numero de noies')
-# plt.tight_layout()
-# plt.legend(loc='upper left',fontsize='9')
-# plt.show()
