@@ -90,42 +90,7 @@ def hist1(options):
     plt.tight_layout()
     fig=df2.plot_bokeh(kind='bar', stacked=True,legend=True,xticks=np.arange(0,36,3),xlabel='Arrival age',ylabel='Number of people',show_figure=False)
 
-<<<<<<< HEAD
     return fig
-=======
-    # plt.title(' _   ')
-
-    # df2 = df.groupby(['Edat_arribada', 'origen_infant'])['Edat_arribada'].count().unstack('origen_infant').fillna(0)
-    # fig,ax=plt.subplots()
-    # df2.plot(ax=ax,kind='bar', stacked=True,color=colors)
-    # plt.xlabel("Edat d'arribada")
-    # plt.ylabel('Numero de persones')
-    # plt.tight_layout()
-    # plt.legend(loc='upper left',fontsize='9')
-    # # plt.show(fig)
-    #
-    # chicos = df[df['sexe_infant']=='Nois']
-    # df2 = chicos.groupby(['origen_infant', 'Edat_arribada'])['Edat_arribada'].count().unstack('origen_infant').fillna(0)
-    # fig2,ax2=plt.subplots()
-    # df2.plot(ax=ax2,kind='bar', stacked=True,color=colors)
-    # plt.xlabel("Edat d'arribada")
-    # plt.ylabel('Numero de nois')
-    # plt.tight_layout()
-    # plt.legend(loc='upper left',fontsize='9')
-    # # plt.show(fig2)
-    #
-    # chicas = df[df['sexe_infant']=='Noies']
-    # df2 = chicas.groupby(['origen_infant', 'Edat_arribada'])['Edat_arribada'].count().unstack('origen_infant').fillna(0)
-    # fig3,ax3=plt.subplots()
-    # df2.plot(ax=ax3,kind='bar', stacked=True,color=colors)
-    # plt.xlabel("Edat d'arribada")
-    # plt.ylabel('Numero de noies')
-    # plt.tight_layout()
-    # plt.legend(loc='upper left',fontsize='9')
-    # plt.show()
-    return fig
-    # ,fig2,fig3
->>>>>>> 95ebc2da40916da5c23ef481433d5dd7e4c78eb0
 
 if __name__ == "__main__":
     """

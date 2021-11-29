@@ -46,11 +46,6 @@ def vagueries_plot(options, show_figure=False):
     muni2=muni[muni['nombre'].isin(['Barcelona','Tarragona','Girona','Lleida'])]
     muni2.rename(columns={"nombre":"Capital"}, inplace=True)
     vagueries=gpd.read_file('/home/usuario/Documentos/Master/1_AVDM/Final_Dashboard/vagueries.geojson')
-<<<<<<< HEAD
-
-=======
-    # vagueries.drop(columns=['id','nom_aft'], inplace=True)
->>>>>>> 95ebc2da40916da5c23ef481433d5dd7e4c78eb0
     vagueries.rename(columns={"aft":"codi_vagueria",'nom_aft':'Vegueria_1'}, inplace=True)
     dw_mapping={"Metropolità de Barcelona":"Barcelona Metropolis",
                "Comarques centrals":"Central shires",
@@ -76,15 +71,7 @@ def vagueries_plot(options, show_figure=False):
         vg_map.drop(index='Desconegut',inplace=True)
         vg_map.reset_index(inplace=True)
     mapa=vg_map.plot_bokeh(simplify_shapes=0, category="Migrants", colormap="Colorblind", legend = "Mirants settled by Vegueria", hovertool_columns=['Vegueria']+["Migrants"],show_figure=False)
-<<<<<<< HEAD
     return muni2.plot_bokeh(figure=mapa,simplify_shapes=10000,legend = "Capitals",hovertool_columns=['Capital'],show_colorbar=False,show_figure=show_figure)
-=======
-
-    return muni2.plot_bokeh(figure=mapa,simplify_shapes=10000,legend = "Capitals",hovertool_columns=['Capital'],show_colorbar=False,show_figure=False)
-
-    # return vg_map.plot_bokeh(simplify_shapes=0, category="Migrants", colormap="Colorblind", legend = "Migrants arribats per Vagueria", hovertool_columns=['Vegueria']+["Migrants"],show_figure=show_figure)
-    # return vg_map.plot_bokeh(simplify_shapes=0, category="A", colormap="Spectral", legend = "Migrants arribats per Vagueria", hovertool_columns=["aft"], show_figure=show_figure)
->>>>>>> 95ebc2da40916da5c23ef481433d5dd7e4c78eb0
 
 if __name__ == "__main__":
     """
