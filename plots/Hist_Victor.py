@@ -78,7 +78,7 @@ def hist1(options):
                "Altra":"Others"}
     df['origen'] = df['origen_infant'].map(dw_mapping)
 
-    pandas_bokeh.output_file('INTENTO')
+    # pandas_bokeh.output_file('INTENTO')
     # # df.hist(column='Edat_arribada',by='sexe_infant',sharex=True,sharey=True)
     colors = ['#E69F00','#56B4E9','#009E73','#F0E442','#0072B2','#D55E00','#CC79A7']
     sns.set_palette(sns.color_palette(colors))
@@ -99,4 +99,3 @@ if __name__ == "__main__":
     """
     options=['All']
     fig=hist1(options)
-    plt.show()
