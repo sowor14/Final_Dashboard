@@ -70,7 +70,7 @@ def vagueries_plot(options, show_figure=False):
         vg_map.set_index('codi_vagueria',inplace=True)
         vg_map.drop(index='Desconegut',inplace=True)
         vg_map.reset_index(inplace=True)
-    mapa=vg_map.plot_bokeh(simplify_shapes=0, category="Migrants", colormap="Colorblind", legend = "Mirants settled by Vegueria", hovertool_columns=['Vegueria']+["Migrants"],show_figure=False)
+    mapa=vg_map.plot_bokeh(simplify_shapes=0, category="Migrants", colormap="Colorblind", legend = "Migrants settled by Vegueria", hovertool_columns=['Vegueria']+["Migrants"],show_figure=False)
     return muni2.plot_bokeh(figure=mapa,simplify_shapes=10000,legend = "Capitals",hovertool_columns=['Capital'],show_colorbar=False,show_figure=show_figure)
 
 if __name__ == "__main__":
